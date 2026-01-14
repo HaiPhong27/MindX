@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Cinematic Home</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#000;color:white}
+
+/* ===== NAV ===== */
+.nav{
+  background:#000;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #333;
+}
+.logo{
+  color:#e50914;
+  font-size:24px;
+  font-weight:bold;
+}
+.user-box{
+  font-size:14px;
+}
+.user-box button{
+  margin-left:10px;
+  padding:5px 10px;
+  background:#e50914;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
+
+/* ===== BANNER ===== */
+.banner{
+  height:320px;
+  background:
+  linear-gradient(to right,rgba(0,0,0,.8),rgba(0,0,0,.2)),
+  url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4") center/cover;
+  display:flex;
+  align-items:center;
+  padding:40px;
+}
+.banner h1{font-size:42px}
+
+/* ===== MOVIES ===== */
+.section{
+  padding:20px 30px;
+}
+.movies{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:15px;
+}
+.card{
+  background:#111;
+  border-radius:8px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.3s;
+}
+.card:hover{transform:scale(1.08)}
+.card img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+}
+.card p{
+  padding:8px;
+  text-align:center;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="logo">CINEMATIC</div>
+  <div class="user-box">
+    Xin chào, <span id="username"></span>
+    <button onclick="logout()">Đăng xuất</button>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <h1>Phim nổi bật hôm nay</h1>
+</div>
+
+<!-- MOVIES -->
+<div class="section">
+  <h2>Tất cả phim</h2>
+  <div class="movies" id="movieList"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ===== KIỂM TRA ĐĂNG NHẬP =====
+  const currentUser = localStorage.getItem("currentUser");
+  if (!currentUser) {
+    location.href = "login.html";
+    return;
+  }
+
+  document.getElementById("currentUserName").innerText = currentUser;
+
+});
+
+// ===== LOGOUT =====
+function logout() {
+  localStorage.removeItem("currentUser");
+  location.href = "login.html";
+}
+</script>
+
+
+</body>
+</html>
