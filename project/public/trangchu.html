@@ -2,123 +2,254 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Cinematic Home</title>
+<title>MindX Netflix Style</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;font-family:Arial}
-body{margin:0;background:#000;color:white}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+body{
+  background:#111;
+  color:#fff;
+  overflow-x:hidden;
+}
 
 /* ===== NAV ===== */
-.nav{
-  background:#000;
-  padding:15px 30px;
+header{
+  position:fixed;
+  top:0;left:0;right:0;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid #333;
+  padding:15px 5%;
+  z-index:1000;
+  background:linear-gradient(to bottom,rgba(0,0,0,.8),transparent);
 }
 .logo{
   color:#e50914;
-  font-size:24px;
+  font-size:28px;
   font-weight:bold;
 }
-.user-box{
+nav a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:20px;
   font-size:14px;
 }
-.user-box button{
-  margin-left:10px;
-  padding:5px 10px;
-  background:#e50914;
+
+/* ===== HERO ===== */
+.hero{
+  height:100vh;
+  background:url('https://image.tmdb.org/t/p/original/8uVKfOJUhmybNsVh089EqLHUYEG.jpg') center/cover no-repeat;
+  position:relative;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,#141414 10%,rgba(0,0,0,.2));
+}
+.hero-content{
+  position:absolute;
+  bottom:30%;
+  left:5%;
+  max-width:500px;
+  z-index:2;
+}
+.hero h1{
+  font-size:48px;
+  margin-bottom:15px;
+}
+.hero p{
+  color:#ddd;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+.hero button{
+  padding:10px 25px;
   border:none;
-  color:white;
+  font-size:16px;
+  border-radius:4px;
   cursor:pointer;
 }
+.play{background:#fff;color:#000}
+.info{background:rgba(109,109,110,.7);color:#fff}
 
-/* ===== BANNER ===== */
-.banner{
-  height:320px;
-  background:
-  linear-gradient(to right,rgba(0,0,0,.8),rgba(0,0,0,.2)),
-  url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4") center/cover;
-  display:flex;
-  align-items:center;
-  padding:40px;
+/* ===== ROW ===== */
+.row{
+  margin-bottom:60px;
 }
-.banner h1{font-size:42px}
-
-/* ===== MOVIES ===== */
-.section{
-  padding:20px 30px;
+.row h2{
+  font-size:20px;
+  font-weight:600;
+  padding-left:5%;
+  margin-bottom:15px;
 }
 .movies{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:15px;
+  display:flex;
+  gap:30px;
+  overflow-x:auto;
+  padding:20px 5%;
 }
-.card{
-  background:#111;
+.movies::-webkit-scrollbar{display:none}
+
+/* ===== NORMAL MOVIE ===== */
+.movie{
+  min-width:240px;
+  height:135px;
+  background-size:cover;
+  background-position:center;
   border-radius:8px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:.3s;
+  flex-shrink:0;
+  transition:transform .3s ease;
 }
-.card:hover{transform:scale(1.08)}
-.card img{
-  width:100%;
-  height:230px;
-  object-fit:cover;
+.movie:hover{
+  transform:scale(1.2);
+  z-index:10;
 }
-.card p{
-  padding:8px;
+
+/* ===== NETFLIX TOP ITEM – FIX CUỐI ===== */
+.top-item{
+  position:relative;
+  min-width:240px;
+  height:135px;
+  background-size:cover;
+  background-position:center;
+  border-radius:8px;
+  flex-shrink:0;
+  overflow:visible;
+  transition:transform .35s ease;
+}
+
+/* SỐ */
+.top-item .rank{
+  position:absolute;
+  left:-18px;
+  bottom:-12px;
+  font-size:90px;          /* 👈 nhỏ lại */
+  font-weight:900;
+  color:#111;
+  -webkit-text-stroke:2px #fff; /* 👈 viền mỏng hơn */
+  pointer-events:none;
+}
+
+
+/* HOVER */
+.top-item:hover{
+  transform:scale(1.25);
+  z-index:20;
+}
+
+
+/* ===== IMAGES ===== */
+.m1{background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRggXdM2Sl6ryohIDADI9EZmOLaKblq8V7R6A&s')}
+.m2{background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX1xqH6J08q1QXKEGk2iJaf2qD-Keu0LHE1w&s')}
+.m3{background-image:url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/lich_chieu_phim_nu_hon_bung_no_ac9ecbed55.jpg')}
+.m4{background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ0SpiwKcEB79E-nLRMcLYMsXV4BEt2r17-A&s')}
+.m5{background-image:url('https://motchillhe.me/wp-content/uploads/2025/12/dai-chien-nguoi-va-than-phan-3-27960-thumb.webp')}
+
+.a1{background-image:url('https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg')}
+.a2{background-image:url('https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg')}
+.a3{background-image:url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg')}
+.a4{background-image:url('https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg')}
+.a5{background-image:url('https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg')}
+
+/* ===== FOOTER ===== */
+footer{
   text-align:center;
-  font-size:14px;
+  padding:40px;
+  color:#777;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<div class="nav">
-  <div class="logo">CINEMATIC</div>
-  <div class="user-box">
-    Xin chào, <span id="username"></span>
-    <button onclick="logout()">Đăng xuất</button>
+<header>
+  <div class="logo">MINDX</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="contact.html">Liên hệ</a>
+    <a href="#">Movies</a>
+    <a href="#">My List</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>Dune: Part Two</h1>
+    <p>Paul Atreides hợp lực cùng người Fremen để thay đổi số phận vũ trụ.</p>
+    <button class="play">▶ Play</button>
+    <button class="info">More Info</button>
   </div>
 </div>
 
-<!-- BANNER -->
-<div class="banner">
-  <h1>Phim nổi bật hôm nay</h1>
+<!-- TRENDING -->
+<div class="row">
+  <h2>Trending Now</h2>
+  <div class="movies">
+
+    <div class="top-item m1">
+      <span class="rank">1</span>
+    </div>
+
+    <div class="top-item m2">
+      <span class="rank">2</span>
+    </div>
+
+    <div class="top-item m3">
+      <span class="rank">3</span>
+    </div>
+
+    <div class="top-item m4">
+      <span class="rank">4</span>
+    </div>
+
+    <div class="top-item m5">
+      <span class="rank">5</span>
+    </div>
+
+  </div>
 </div>
 
-<!-- MOVIES -->
-<div class="section">
-  <h2>Tất cả phim</h2>
-  <div class="movies" id="movieList"></div>
+<!-- ACTION -->
+<div class="row">
+<h2>Action Movies</h2>
+<div class="movies">
+  <div class="movie a1"></div>
+  <div class="movie a2"></div>
+  <div class="movie a3"></div>
+  <div class="movie a4"></div>
+  <div class="movie a5"></div>
 </div>
+</div>
+
+<footer>
+© 2026 MindX – Đào Hải Phong
+</footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  // ===== KIỂM TRA ĐĂNG NHẬP =====
-  const currentUser = localStorage.getItem("currentUser");
-  if (!currentUser) {
-    location.href = "login.html";
-    return;
-  }
-
-  document.getElementById("currentUserName").innerText = currentUser;
-
+/* Navbar scroll */
+const header=document.querySelector('header');
+window.addEventListener('scroll',()=>{
+  header.style.background = window.scrollY>100
+    ? '#141414'
+    : 'linear-gradient(to bottom,rgba(0,0,0,.8),transparent)';
 });
 
-// ===== LOGOUT =====
-function logout() {
-  localStorage.removeItem("currentUser");
-  location.href = "login.html";
-}
+/* Click Top Movie */
+const topMovies=document.querySelectorAll('.top-movie');
+topMovies.forEach(item=>{
+  item.addEventListener('click',()=>{
+    topMovies.forEach(m=>m.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
 </script>
-
 
 </body>
 </html>

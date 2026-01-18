@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Liên hệ – MindX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+body{
+  background:#111;
+  color:#fff;
+}
+
+/* ===== NAV ===== */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 5%;
+  background:#141414;
+  z-index:1000;
+}
+.logo{
+  color:#e50914;
+  font-size:26px;
+  font-weight:bold;
+}
+nav a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:20px;
+  font-size:14px;
+}
+
+/* ===== CONTACT ===== */
+.contact{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding-top:80px;
+}
+
+.contact-box{
+  width:100%;
+  max-width:500px;
+  background:#181818;
+  padding:40px;
+  border-radius:10px;
+}
+
+.contact-box h1{
+  margin-bottom:10px;
+}
+.contact-box p{
+  color:#aaa;
+  margin-bottom:25px;
+}
+
+/* FORM */
+.contact-box input,
+.contact-box textarea{
+  width:100%;
+  padding:12px 14px;
+  margin-bottom:15px;
+  background:#222;
+  border:1px solid #333;
+  border-radius:6px;
+  color:#fff;
+  font-size:14px;
+}
+
+.contact-box textarea{
+  resize:none;
+  height:120px;
+}
+
+.contact-box button{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:#e50914;
+  color:#fff;
+  font-size:16px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.3s;
+}
+.contact-box button:hover{
+  background:#f40612;
+}
+
+/* INFO */
+.contact-info{
+  margin-top:30px;
+  font-size:14px;
+  color:#aaa;
+}
+.contact-info div{
+  margin-bottom:8px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:30px;
+  color:#666;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">MINDX</div>
+  <nav>
+    <a href="trangchu.html">Home</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="contact">
+  <div class="contact-box">
+    <h1>Liên hệ với chúng tôi</h1>
+    <p>Gửi thắc mắc hoặc góp ý, MindX sẽ phản hồi sớm nhất.</p>
+
+    <form>
+      <input type="text" placeholder="Họ và tên" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Nội dung liên hệ..." required></textarea>
+      <button type="submit">Gửi liên hệ</button>
+    </form>
+
+    <div class="contact-info">
+      <div>📧 Email: support@mindx.vn</div>
+      <div>📞 Hotline: 0123 456 789</div>
+      <div>📍 Việt Nam</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+© 2026 MindX – Đào Hải Phong
+</footer>
+
+</body>
+</html>
