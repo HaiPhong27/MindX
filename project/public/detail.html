@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Movie Detail</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#0f0f0f;color:#fff}
+header{background:#111;padding:15px 5%;border-bottom:1px solid #222}
+header a{color:#fff;text-decoration:none}
+.container{
+  display:grid;
+  grid-template-columns: 300px 1fr 280px;
+  gap:30px;
+  padding:40px 5%;
+  max-width:1300px;
+  margin:auto;
+}
+.poster img{width:100%;border-radius:10px}
+.btns{margin-top:15px;display:flex;gap:10px}
+.btn{flex:1;padding:10px;border:none;cursor:pointer;border-radius:5px}
+.watch{background:#e50914;color:#fff}
+.download{background:#2d89ef;color:#fff}
+.info h1{color:#ff9f43}
+.sub{color:#aaa;margin-bottom:15px}
+.meta p{margin:6px 0}
+.star{color:gold}
+.sidebar h2{margin-bottom:15px}
+.top-item{display:flex;gap:10px;margin-bottom:10px;background:#1a1a1a;padding:8px;border-radius:6px;cursor:pointer}
+.top-item img{width:50px;border-radius:4px}
+.trailer{grid-column:1/4;margin-top:30px}
+iframe{width:100%;height:420px;border-radius:10px}
+.comments{grid-column:1/4;margin-top:30px}
+.comment{background:#1a1a1a;padding:10px;border-radius:6px;margin-bottom:10px}
+.comment-form input,.comment-form textarea{
+  width:100%;margin-bottom:8px;padding:8px;border:none;border-radius:4px
+}
+.comment-form button{
+  padding:8px 15px;background:#e50914;color:#fff;border:none;border-radius:4px
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="trangchu.html">← Trang chủ</a>
+</header>
+
+<div class="container">
+
+  <div class="poster">
+    <img id="poster">
+    <div class="btns">
+      <button class="btn watch">▶ Xem phim</button>
+      <button class="btn download">⬇ Tải phim</button>
+    </div>
+  </div>
+
+  <div class="info">
+    <h1 id="title"></h1>
+    <div class="sub" id="subtitle"></div>
+    <div class="meta">
+      <p>Trạng thái: <span id="status"></span></p>
+      <p>Thời lượng: <span id="duration"></span></p>
+      <p>Số tập: <span id="episodes"></span></p>
+      <p>Năm: <span id="year"></span></p>
+      <p>Quốc gia: <span id="country"></span></p>
+      <p>Thể loại: <span id="genres"></span></p>
+      <p>Đạo diễn: <span id="director"></span></p>
+      <p>Diễn viên: <span id="cast"></span></p>
+      <p>Miêu tả: <span id="description"></span></p>
+    </div>
+    <div class="rating">
+      <span class="star">★★★★☆</span> (8.5/10)
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <h2>Top phim tuần</h2>
+    <div id="toplist"></div>
+  </div>
+
+  <div class="trailer">
+    <h2>Trailer</h2>
+    <iframe id="trailer" allowfullscreen></iframe>
+  </div>
+
+  <div class="comments">
+    <h2>Bình luận</h2>
+    <div class="comment-form">
+      <input id="userInput" placeholder="Tên của bạn">
+      <textarea id="contentInput" placeholder="Viết bình luận..."></textarea>
+      <button onclick="sendComment()">Gửi</button>
+    </div>
+    <div id="commentList"></div>
+  </div>
+
+</div>
+
+<script src="movies.js"></script>
+<script>
+const id = Number(new URLSearchParams(location.search).get("id"))
+const movie = localMovies.find(m=>m.id===id)
+
+// render phim
+if(movie){
+  poster.src = movie.poster
+  title.innerText = movie.title
+  subtitle.innerText = movie.en || ""
+  status.innerText = movie.status
+  duration.innerText = movie.duration
+  episodes.innerText = movie.episodes
+  year.innerText = movie.year
+  country.innerText = movie.country
+  genres.innerText = movie.genres.join(", ")
+  director.innerText = movie.director
+  cast.innerText = movie.cast
+  description.innerText = movie.description
+  trailer.src = movie.trailer
+}
+
+// toplist
+toplist.innerHTML = localMovies.map(m=>`
+  <div class="top-item" onclick="location.href='detail.html?id=${m.id}'">
+    <img src="${m.poster}">
+    <div>
+      <div>${m.title}</div>
+      <div style="color:#aaa;font-size:12px">${m.year}</div>
+    </div>
+  </div>
+`).join("")
+
+// ===== COMMENTS (localStorage) =====
+const STORAGE_KEY = "comments_movie_" + id
+
+function loadComments(){
+  const list = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+  commentList.innerHTML = list.map(c=>`
+    <div class="comment">
+      <b>${c.user}</b>
+      <span style="color:#aaa;font-size:12px"> ${c.time}</span>
+      <p>${c.content}</p>
+    </div>
+  `).join("")
+}
+
+function sendComment(){
+  const user = userInput.value.trim()
+  const content = contentInput.value.trim()
+  if(!user || !content) return alert("Nhập đủ thông tin")
+
+  const list = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+  list.push({
+    user,
+    content,
+    time: new Date().toLocaleString()
+  })
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list))
+  contentInput.value=""
+  loadComments()
+}
+
+loadComments()
+</script>
+
+</body>
+</html>
